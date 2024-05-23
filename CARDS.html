@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>CARDS</title>
+  </head>
+
+  <body>
+
+    <div id="play_area">
+        <div id="current_black">
+            <div class="card" id="black_card">
+                <span id="black_text"></span>
+                <span id="undrawn_black"></span>
+            </div>
+        </div> 
+
+        <div id="hand">
+            <div class="white_card card" id="card_1" onClick="selectCard(this.id)"></div>
+            <div class="white_card card" id="card_2" onClick="selectCard(this.id)"></div>
+            <div class="white_card card" id="card_3" onClick="selectCard(this.id)"></div>
+            <div class="white_card card" id="card_4" onClick="selectCard(this.id)"></div>
+            <div class="white_card card" id="card_5" onClick="selectCard(this.id)"></div>
+            <div class="white_card card" id="card_6" onClick="selectCard(this.id)"></div>
+            <div class="white_card card" id="card_7" onClick="selectCard(this.id)"></div>
+        </div>
+        <div id="buttons">
+            <button onClick="showPlayed()">MUTATOM</button>
+            <button onClick="startGame()">ÚJ KÖR</button>
+        </div>
+        
+    </div>
+
+  </body>
+
+</html>
+
+
+
+<style>
+
+
+    #hand, #current_black{
+        display:flex;
+        flex-direction:row;
+        justify-content: space-evenly;
+        gap:1vh
+    }
+
+    .card{
+        height:25vh;
+        width:20vh;
+        border: 2px dashed black;
+        padding:5px;
+    }
+
+    #black_card {
+        color:white;
+        background-color:black;
+        border:none
+    }
+
+    @media only screen and (max-width:1080px) {
+        #hand {
+            flex-wrap:wrap
+        }
+        .card {
+
+        }
+    }
+    #black_card {
+        display:flex;
+        flex-direction:column;
+        align-content:space-between
+    }
+
+
+
+</style>
+
+
+
+<script>
+
+    const selectCard = (selected_id) => {
+
+    }
+
+    const showPlayed = () => {
+
+    }
+
+    const checkDrawn = (drawn) => {
+        let undrawnWhites = whites.reduce((acc,cur) => cur.drawn === false? ++acc : acc, 0);
+        let undrawnBlacks = blacks.reduce((acc,cur) => cur.drawn === false? ++acc : acc, 0);
+        document.getElementById("undrawn_black").innerHTML = undrawnBlacks;
+        if (undrawnWhites < 15) {
+            whites.forEach((el) => el.drawn = false)
+        } else if (undrawnBlacks == 0) {
+            alert ("game over!")
+        }
+    }
+    
+
+    const newRound = () => {
+        document.getElementById("black_text").innerHTML = drawCard(blacks);
+
+    }
+
+    const drawCard = (deck) => {
+        let randomNum = Math.floor(Math.random() * deck.length);
+        let randomCard = deck[randomNum];
+        if(randomCard.drawn) {(drawCard(deck))};
+        randomCard.drawn = true;
+        if (deck == "blacks") {document.getElementById("black_text").innerHTML = randomCard.cardText};
+        return randomCard.cardText;
+    }
+
+    const startGame = () => {
+        drawCard(blacks);
+        for (i = 0; i < 7; ++i) {
+            document.getElementsByClassName("white_card")[i].innerHTML = drawCard(whites);
+        }
+        document.getElementById("black_text").innerHTML = drawCard(blacks);
+        
+    }
+
+    
+
+    const whites = [{cardText: `Anett`, drawn: false}, {cardText: `Kutor`, drawn: false}, {cardText: `Dáve`, drawn: false}, {cardText: `Barci`, drawn: false}, {cardText: `Márton`, drawn: false}, {cardText: `Anett`, drawn: false}, {cardText: `Kutor`, drawn: false}, {cardText: `Dáve`, drawn: false}, {cardText: `Barci`, drawn: false}, {cardText: `Márton`, drawn: false}, {cardText: `Dávidka`, drawn: false}, {cardText: `Dávidka`, drawn: false}, {cardText: `Csányi Lilla`, drawn: false}, {cardText: `Berger István`, drawn: false}, {cardText: `Debrecen`, drawn: false}, {cardText: `Nightwish`, drawn: false}, {cardText: `Fospermet`, drawn: false}, {cardText: `Ruhák nélkül ébredni egy franciaágyban atőlem balra ülővel`, drawn: false}, {cardText: `Szippantóssal teleönteni fossal a Hammer szerkesztőségét`, drawn: false}, {cardText: `Ági`, drawn: false}, {cardText: `Súlyos testi sértés`, drawn: false}, {cardText: `Minden / az összes`, drawn: false}, {cardText: `Szűk púzójú tinilányok`, drawn: false}, {cardText: `Én`, drawn: false}, {cardText: `Önkielégítés`, drawn: false}, {cardText: `Kötél általi nyilvános kivégzés`, drawn: false}, {cardText: `Puttófalva`, drawn: false}, {cardText: `Tóth Gabi`, drawn: false}, {cardText: `A Márton tervei`, drawn: false}, {cardText: `A Matyi elfenekel egy hideg, nedves ponttyal`, drawn: false}, {cardText: `Megint kurva sokba kerül valami`, drawn: false}, {cardText: `A bőgő`, drawn: false}, {cardText: `Meginni a többiek pisáját`, drawn: false}, {cardText: `Háromágú nyuszis análvibrátor`, drawn: false}, {cardText: `Kilépek a zenekarból`, drawn: false}, {cardText: `Szopás`, drawn: false}, {cardText: `Fosvahányás`, drawn: false}, {cardText: `Szex a tőlem jobba ülővel`, drawn: false}, {cardText: `A munkahelyem`, drawn: false}, {cardText: `Telefosott román toi-toi`, drawn: false}, {cardText: `Pacalt enni a tőlem jobbra ülő meztelen testéről`, drawn: false}, {cardText: `A tőlem balra ülő játékos bal kislábujja`, drawn: false}, {cardText: `Felgyújtani a Kék Yukat`, drawn: false}, {cardText: `Alkohol`, drawn: false}, {cardText: `La Tevi Pub`, drawn: false}, {cardText: `Román lánykoli`, drawn: false}, {cardText: `PÉNZ!!!`, drawn: false}, {cardText: `Semmi`, drawn: false}, {cardText: `Dalriada Laura`, drawn: false}, {cardText: `Beast in Black`, drawn: false}, {cardText: `Echonald zenekar`, drawn: false}, {cardText: `Beleszarni a főzenekar gitártokjába`, drawn: false}, {cardText: `Tales of Evening`, drawn: false}, {cardText: `Denevér Hangstúdió`, drawn: false}, {cardText: `A Kristóf a zsíros haját rácsgálja`, drawn: false}, {cardText: `Szaros kuka Puttón`, drawn: false}, {cardText: `A Hammer elnyomtatja a lemezes cikket`, drawn: false}, {cardText: `Hammerworld Hungary`, drawn: false}, {cardText: `Az Ivett böfögése`, drawn: false}, {cardText: `Interviszt`, drawn: false}, {cardText: `Anett`, drawn: false}, {cardText: `Prétor`, drawn: false}, {cardText: `Dáve`, drawn: false}, {cardText: `Dávid`, drawn: false}, {cardText: `Márton`, drawn: false}, {cardText: `Egy vödör geci`, drawn: false}, {cardText: `A puszta létezésem`, drawn: false}, {cardText: `Buzipornó a zenekar tagjaival`, drawn: false}, {cardText: `Belecsavarni az alsóneműmből  a háromnapi gátlevet a főzenekar kávéjába`, drawn: false}, {cardText: `Cigányok`, drawn: false}, {cardText: `Hányós részegedés`, drawn: false}, {cardText: `Púzótágítás`, drawn: false}, {cardText: `Testüreg-vizsgálat a szerb határon`, drawn: false}, {cardText: `Fitymatúró`, drawn: false}, {cardText: `Merevedési zavar`, drawn: false}, {cardText: `Titokban belefosni a másik gépébe`, drawn: false}, {cardText: `Ez a játék`, drawn: false}, {cardText: `Három fős közönség`, drawn: false}, {cardText: `Dalriada`, drawn: false}, {cardText: `Osztálypénz`, drawn: false}, {cardText: `A Kristóf végre felveszi a telefont`, drawn: false}, {cardText: `2020`, drawn: false}, {cardText: `A hangszeres tudásom`, drawn: false}, {cardText: `Szeméttel dobálni a Visions of Atlantist a koncertjük alatt`, drawn: false}, {cardText: `Holokauszt`, drawn: false}, {cardText: `69 a legközelebbi jobbra ülővel`, drawn: false}, {cardText: `Koronavírus`, drawn: false}, {cardText: `A többi játékos`, drawn: false}, {cardText: `A Márton pincéje`, drawn: false}, {cardText: `Fosban főtt meztelencsiga`, drawn: false}, {cardText: `A Kutor tangában`, drawn: false}, {cardText: `NINCS NET!!!`, drawn: false}, {cardText: `Egy nagy, kiadós fingás`, drawn: false}, {cardText: `A púzóm`, drawn: false}, {cardText: `Café Amelie`, drawn: false}, {cardText: `Döglött patkányt celluxozunk a Töfi íróasztalára`, drawn: false}, {cardText: `Házasság a tőlem jobbra ülővel`, drawn: false}, {cardText: `Dudás Ivett`, drawn: false}, {cardText: `Habosra baszni a Cécile torkát`, drawn: false}, {cardText: `Hammerworld szerkesztőség`, drawn: false}, {cardText: `A Márton busza`, drawn: false}, {cardText: `Vári Gábor a birkákat kúrja`, drawn: false}, {cardText: `A csellózásunk`, drawn: false}, {cardText: `Édeshármas a két oldalamon ülőkkel`, drawn: false}, {cardText: `Alvás Szolnokon`, drawn: false}, {cardText: `Valaki az ajtó elé szart`, drawn: false}, {cardText: `Adolf Hitler`, drawn: false}, {cardText: `Robbanós fosás`, drawn: false}, {cardText: `A Hammer elnyomtatja a lemezes cikket`, drawn: false}, {cardText: `Kutor`, drawn: false}, {cardText: `Prétor`, drawn: false}, {cardText: `Barci`, drawn: false}, {cardText: `Dávid`, drawn: false}, {cardText: `Dr. Hartmann Kristóf`, drawn: false}, {cardText: `Taknyot kenni a backstage kanapéra`, drawn: false}, {cardText: `Barbi`, drawn: false}, {cardText: `A Dáve Hawaii mintás fürdőnadrágban`, drawn: false}, {cardText: `A seggem`, drawn: false}, {cardText: `Apocalyptica`, drawn: false}, {cardText: `A Dáve elkurvázza az osztálypénzt`, drawn: false}, {cardText: `Szűk púzó`, drawn: false}, {cardText: `Thomas Caser`, drawn: false}, {cardText: `A halálom`, drawn: false}, {cardText: `Thomas Caser meleg`, drawn: false}, {cardText: `Öngyilkosság`, drawn: false}, {cardText: `Szexelni a Leecher összes valaha volt lánytagjával`, drawn: false}, {cardText: `Kijárási tilalom`, drawn: false}, {cardText: `A valóság`, drawn: false}, {cardText: `Szexelni a Leecher összes valaha volt férfi tagjával`, drawn: false}, {cardText: `Jó zene`, drawn: false}, {cardText: `Töfi`, drawn: false}, {cardText: `Petricor`, drawn: false}, {cardText: `Az Ági kilép`, drawn: false}, {cardText: `Hatalom`, drawn: false}, {cardText: `Elrabolni és nagybőgőzésre kényszeríteni a Miront`, drawn: false}, {cardText: `A Leecher zenekar`, drawn: false}, {cardText: `Sniffyction`, drawn: false}, {cardText: `A Mártonnak hasmenése van`, drawn: false}, {cardText: `A Hartmann nem veszi fel a telefont`, drawn: false}, {cardText: `Egy pohár, tele a Nightwish pisájával`, drawn: false}, {cardText: `Nig... afro-amerikaiak`, drawn: false}, {cardText: `Az életem`, drawn: false}, {cardText: `Nightliner turné`, drawn: false}, {cardText: `Pozitív hullámok`, drawn: false}, {cardText: `SZEX!`, drawn: false}, {cardText: `Egy nagy rakás szar`, drawn: false}, {cardText: `Románia`, drawn: false}, {cardText: `Síkosítatlan anális behatolás`, drawn: false}, {cardText: `InLife zenekar`, drawn: false}, {cardText: `A Kari lakása`, drawn: false}, {cardText: `Szeplősre fosni egy shieldelőt`, drawn: false}, {cardText: `Bármi`, drawn: false}, {cardText: `Kirúgnak a zenekarból`, drawn: false}, {cardText: `Kék Yuk`, drawn: false}, {cardText: `NEM SZÓL`, drawn: false}, {cardText: `Szex a Showbarlang shieldelőjében`, drawn: false}, {cardText: `Az Ági selymes ánusza`, drawn: false}, {cardText: `Zságer Balázs`, drawn: false}, {cardText: `Deva`, drawn: false}, {cardText: `Triola Gang`, drawn: false}, {cardText: `Fekete Zaj`, drawn: false}, {cardText: `Szippantóssal teleönteni fossal a Hammer Zenebarlangot éjjel`, drawn: false}, {cardText: `Szexelni a Leecher összes valaha volt lánytagjával`, drawn: false}, {cardText: `Fülesbagoly`, drawn: false}, {cardText: `Kivágják a vesénket a Klub Kamuban`, drawn: false}, {cardText: `2020`, drawn: false}, {cardText: `Koronavírus`, drawn: false}, {cardText: `Kijárási tilalom`, drawn: false}, {cardText: `A múmia öreg`, drawn: false}, {cardText: `Laptoptöltő`, drawn: false}, {cardText: `Meo Culpa`, drawn: false}, {cardText: `Az Ági NEM szerelmes a Mártonba`, drawn: false}, {cardText: ``, drawn: false}, {cardText: ``, drawn: false}, {cardText: ``, drawn: false}, {cardText: `+pusztulása`, drawn: false}, {cardText: `+kettő/kétszer`, drawn: false}, {cardText: `+semmiképpen sem`, drawn: false}, {cardText: `+minden, ami nem a`, drawn: false}, {cardText: `+egy kis`, drawn: false}];
+
+    const blacks = [{cardText: `A Leecher világsikerének legfőbb akadálya`, drawn: false}, {cardText: `Ha ez megtörténik, én tuti kilépek`, drawn: false}, {cardText: `Örülnék, ha ez az egy dolog eltűnne a Leecherből`, drawn: false}, {cardText: `Szomorú leszek, ha enélkül halok meg`, drawn: false}, {cardText: `Sikoltozva ébredtem, mert erről álmodtam`, drawn: false}, {cardText: `A Leecher lényege igazából`, drawn: false}, {cardText: `Régen utáltam ezt a zenekarban, de azóta sikerült megszoknom`, drawn: false}, {cardText: `Kutor legtitkosabb vágya`, drawn: false}, {cardText: `Anett legtitkosabb vágya`, drawn: false}, {cardText: `Ági legtitkosabb vágya`, drawn: false}, {cardText: `Dáve legtitkosabb vágya`, drawn: false}, {cardText: `Ezt csináltuk a Liesékkal a backstage-ban koncert után`, drawn: false}, {cardText: `Nagyon hiányzik szerintem a zenekarból`, drawn: false}, {cardText: `A Leecher-dokumentumfilm első jelenete`, drawn: false}, {cardText: `Emiatt nem jó nekem ma a próba`, drawn: false}, {cardText: `Az egész turnét tönkreteheti`, drawn: false}, {cardText: `Mindenki utálja, de senki nem meri kimondani`, drawn: false}, {cardText: `Emiatt lett szar a legutóbbi koncert`, drawn: false}, {cardText: `A legjobb élményem a Leecherrel`, drawn: false}, {cardText: `Ami igazán elveszi a kedvemet a szextől`, drawn: false}, {cardText: `Erről kéne már írnunk egy dalt!`, drawn: false}, {cardText: `Ez lesz a lemezborítón`, drawn: false}, {cardText: `Remélem, hogy egyszer ezt is fogjuk csinálni a Leecherrel`, drawn: false}, {cardText: `A Márton táskájának legmeglepőbb tartalma`, drawn: false}, {cardText: `Ha a zenekarommal akarok pasizni/csajozni, ezt említem meg`, drawn: false}, {cardText: `Miről forgassunk filmet legközelebb?`, drawn: false}, {cardText: `Ezzel fogjuk legközelebb a koncertre csábítani Facebookon az embereket`, drawn: false}, {cardText: `Ettől óvtak a szüleim`, drawn: false}, {cardText: `A következő Leecher lemez címe`, drawn: false}, {cardText: `A legnagyobb félelmem`, drawn: false}, {cardText: `Erre szoktam gondolni szex közben`, drawn: false}, {cardText: `Ezért nem beszél a Dávid`, drawn: false}, {cardText: `Ez szerzi majd meg a nemzetközi elismertséget a zenekarnak`, drawn: false}, {cardText: `Emiatt igazán vonzó a rocksztár-karrier`, drawn: false}, {cardText: `A legszexibb dolog a Leecherben`, drawn: false}, {cardText: `Kívülről a rocksztár élete csupa csillogás, de valójában...`, drawn: false}, {cardText: `A legrosszabb, ami egy randin történhet`, drawn: false}, {cardText: `Ennél a bulinál még ... is jobb`, drawn: false}, {cardText: `Ezért egyszer még lecsukják a zenekart`, drawn: false}, {cardText: `Remélem, hogy legközelebbre jobb lesz, mint legutóbb volt`, drawn: false}, {cardText: `Úgy tettem, mintha utálnám, de titokban jól esett`, drawn: false}, {cardText: `Miért nem szól?!`, drawn: false}, {cardText: `Imádom a számba venni`, drawn: false}, {cardText: `A közelgő apokalipszis biztos előjele`, drawn: false}, {cardText: `Ezért lettem ilyen`, drawn: false}, {cardText: `Nagyon megbántam`, drawn: false}, {cardText: `Azért iszom, hogy ezt elfelejtsem`, drawn: false}, {cardText: `Ezt csinálja valójában Anett, amikor eltűnik a telefonjával`, drawn: false}, {cardText: `Ezért utálja valójában az Ági a Matyit`, drawn: false}, {cardText: `Az idei újévi fogadalmam, hogy minimálisra csökkentem ezt az életemben`, drawn: false}, {cardText: `Ági titkos perverziója`, drawn: false}, {cardText: `Igazából emiatt szeretett bele a Kutorba az Anett`, drawn: false}, {cardText: `Ezt szeretné minden fiú az Ágival csinálni`, drawn: false}, {cardText: `A pszichológusom felmondott, amikor ezt elmeséltem neki`, drawn: false}, {cardText: `Bárcsak minden klubban lenne`, drawn: false}, {cardText: `Nagyon kényes vagyok rá, hogy pont olyan legyen, ahogyan szeretem`, drawn: false}, {cardText: `Remélem, hogy erről sosem kérdeznek majd interjúban`, drawn: false}, {cardText: `A következő koncertet ezzel fogjuk feldobni`, drawn: false}, {cardText: `Ezt emelték ki a kritikusok a legutóbbi koncerttel kapcsolatban`, drawn: false}, {cardText: `Olyan szép vagyok, mint...`, drawn: false}, {cardText: `Ez történt tegnap este velem, amíg nem tudtam magamról`, drawn: false}, {cardText: `Ebben vagyok a legjobb a jelenlévők közül`, drawn: false}, {cardText: `Ezért szeretnek a többiek`, drawn: false}, {cardText: `Ezt bevállalnám azért, hogy a Nightwishben játszhassak egy koncerten`, drawn: false}, {cardText: `Ami igazán kihozza a Mártont a sodrából`, drawn: false}, {cardText: `Remélem, hogy a holland turnén végre lesz...`, drawn: false}, {cardText: `Ezzel fogadjuk a Prétort, amikor legközelebb hazajön`, drawn: false}, {cardText: `Ez történt, amikor az Ági és a Matyi kettesben maradt az Ági búcsúbuliján`, drawn: false}, {cardText: `Egyszer bőven elég volt`, drawn: false}, {cardText: `A párom nagyon mérges volt rám, amikor véletlenül ezt kiabáltam szex közben`, drawn: false}, {cardText: `Kuka híján ezt fogja hozzávágni az Ági ahhoz, aki legközelebb felhúzza`, drawn: false}, {cardText: `Amiért valójában kiestünk az X-Faktorból`, drawn: false}, {cardText: `Az Ági Wi-Fi jelszava`, drawn: false}, {cardText: `Az Ági olyan aranyos, soha nem tenném meg vele ezt`, drawn: false}, {cardText: `Bárcsak ezt csinálhatnám a Dávéval (ha ő húzza, akkor Kutorral)`, drawn: false}, {cardText: `Ha egyszer elkezded, nem bírod abbahagyni`, drawn: false}, {cardText: `Kiábrándító`, drawn: false}, {cardText: `Nem volt még a seggemben... de örülnék neki`, drawn: false}, {cardText: `A titkos adalék, amitől a Matyi főztje utánozhatatlan lesz`, drawn: false}, {cardText: `Ehelyett lett végül Leecher a nevünk`, drawn: false}, {cardText: `Egy romantikus vacsora elengedhetetlen kelléke`, drawn: false}, {cardText: `A Prétor a mai napig lehúz két felest és egy doboz cigit, ha ez eszébe jut`, drawn: false}, {cardText: `A valódi motivációm, ami miatt a zenekarban vagyok`, drawn: false}, {cardText: `A szüleim nagyot csalódtak bennem, amikor ezt megtudták`, drawn: false}, {cardText: `Csak Anya meg ne tudja`, drawn: false}, {cardText: `Ezt kell a Dávénak túlórában csinálnia mindig`, drawn: false}, {cardText: `Szánalmasan szar`, drawn: false}, {cardText: `Ezzel fogom megerőszakolni a tőlem jobbra ülőt`, drawn: false}, {cardText: `Mindig mosolyt csal az arcomra`, drawn: false}, {cardText: `Erre fogom költeni a jogdíjamat, ha megkapom`, drawn: false}, {cardText: `Nélkülözhetetlen a jó szexhez`, drawn: false}, {cardText: `Nincs mese, most már beszélnünk kell róla`, drawn: false}, {cardText: `Majd ha fizetnek érte, akkor talán elfogadom`, drawn: false}, {cardText: `Pozitív csalódás volt`, drawn: false}, {cardText: `Kínos hallgatás következik be, valahányszor ez szóba kerül`, drawn: false}, {cardText: `Ezért foglalkozik valójában a Márton a zenekarral`, drawn: false}, {cardText: `Féltem tőle a púzóm`, drawn: false}, {cardText: `Azért nincs pénze a Barcinak, mert erre veri el mindig`, drawn: false}, {cardText: `Ezt adom a tőlem jobbra ülőnek karácsonyra`, drawn: false}, {cardText: `A következő kurva drága zenekari kiadás`, drawn: false}, {cardText: `Erről szól a következő klip`, drawn: false}, {cardText: `Nem is gondolná senki, hogy mennyi munkát igényel`, drawn: false}, {cardText: `Még soha nem csináltam`, drawn: false}, {cardText: `A zenekar történetének legfeleslegesebb pénzkiadása`, drawn: false}, {cardText: `Bárcsak nekem is lenne`, drawn: false}, {cardText: `Volt már a seggemben`, drawn: false}, {cardText: `A legfinomabb dolog, amit valaha kóstoltam`, drawn: false}, {cardText: `Minden problémát megoldana`, drawn: false}, {cardText: `Minden szenvedést megért`, drawn: false}, {cardText: `A zenekar mélypontja`, drawn: false}, {cardText: `A zenekar csúcspontja`, drawn: false}, {cardText: `Annyit sem ér, hogy lepisáljam`, drawn: false}, {cardText: `Rendkívül egészségtelen`, drawn: false}, {cardText: `Minden körülmények között tilos a zenekarban`, drawn: false}, {cardText: `Ezért nem veszi fel a Kristóf a telefont`, drawn: false}, {cardText: `Felháborító`, drawn: false}, {cardText: `Elégtételt éreztem, amikor ez megtörtént`, drawn: false}, {cardText: `Mindig feldobja a bulit`, drawn: false}, {cardText: `Hogyen veszítettem el a szüzességemet?`, drawn: false}, {cardText: `Úgy viselem el az életet, hogy erre gondolok a mélypontokon`, drawn: false}, {cardText: `Azért iszom, hogy ezt elfelejtsem`, drawn: false}, {cardText: `Mi ez a szag?`, drawn: false}, {cardText: `Az idő múlásával egyre csak jobb lesz`, drawn: false}, {cardText: `Teleholdkor ezzé változom`, drawn: false}, {cardText: `Gimis koromban ezt ábrázoló poszterek borították a szobám falát`, drawn: false}, {cardText: `Erre gondolva okoztam magamnak életem legnagyobb orgazmusát`, drawn: false}, {cardText: `Leönteném benzinnel és felgyújtanám`, drawn: false}, {cardText: `Erkölcsileg védhetetlen`, drawn: false}, {cardText: `Ezt festjük a turnébusz oldalára`, drawn: false}, {cardText: `Égető probléma az életemben, de a kezelését lustaságból és félelemből hónapok óta halogatom`, drawn: false}, {cardText: `Ebben vagyok a jelenlévők közül a legjobb`, drawn: false}, {cardText: `Miről chatel az Ági mindig?`, drawn: false}, {cardText: `Barci legtitkosabb vágya`, drawn: false}, {cardText: `Márton legtitkosabb vágya`, drawn: false}, {cardText: `Ezt a halálnemet bánnám a legkevésbé`, drawn: false}, {cardText: `Fel kellett adnom a Leecherért`, drawn: false}, {cardText: `Jóslat a következő turnéra`, drawn: false}, {cardText: `Hallgathatatlan`, drawn: false}, {cardText: `A zenei előadóművészet történetének legbestiálisabb kultúrbűncselekménye`, drawn: false}, {cardText: `Szexuálisan felizgat`, drawn: false}, {cardText: `Nem tudnék nélküle élni`, drawn: false}, {cardText: `Sohasem lehet az enyém :(`, drawn: false}, {cardText: `Legközelebb ezt keni össze a Csilla kutyaszarral`, drawn: false}, {cardText: `A Barci szerint csak akkor jó, ha szeretetből történik`, drawn: false}, {cardText: `Emiatt járok pszichológushoz`, drawn: false}, {cardText: `Inkább felkötöm magam`, drawn: false}, {cardText: `A Dáve új prioritása`, drawn: false}, {cardText: `Ezzel kapcsolatban vár empátiát a Dáve`, drawn: false}, {cardText: `Megint kurva sokba kerül valami`, drawn: false}, {cardText: `Kategóriájának elrettentő példája`, drawn: false}, {cardText: `A Likőr végzete`, drawn: false}, {cardText: `Szerelem első látásra`, drawn: false}, {cardText: `Sohasem kerülhetnek egy helyre (2)`, drawn: false}, {cardText: `Nem látok különbséget (2)`, drawn: false}, {cardText: `Tökéletes páros (2)`, drawn: false}, {cardText: `Megérdemlik egymást (2)`, drawn: false}];
+
+    startGame();
+    checkDrawn();
+
+</script>
